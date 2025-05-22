@@ -47,11 +47,11 @@ const data = {
       items: [
         {
           title: "Add Skill",
-          url: "#",
+          url: "/dashboard/skill/add-skill",
         },
         {
           title: "Manage Skill",
-          url: "#",
+          url: "/dashboard/skill/manage-skill",
         }
       ],
     },

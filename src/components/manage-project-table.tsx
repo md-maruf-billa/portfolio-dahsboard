@@ -34,7 +34,7 @@ export function Manage_Project_Table({ data }: Props) {
             if (result.isConfirmed) {
                 const res = await delete_project(id)
                 if(res.success){
-                    Swal.fire({
+                    await Swal.fire({
                         title: "Deleted!",
                         text: "Project Deleted!",
                         icon: "success"
