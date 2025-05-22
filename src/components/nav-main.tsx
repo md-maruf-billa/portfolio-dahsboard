@@ -17,7 +17,8 @@ import {
   SidebarMenuSubButton,
   SidebarMenuSubItem,
 } from "@/components/ui/sidebar"
-
+import Link from "next/link"
+import {usePathname} from "next/navigation";
 export function NavMain({
   items,
 }: {
@@ -32,6 +33,10 @@ export function NavMain({
     }[]
   }[]
 }) {
+
+  // find location
+  const pathName = usePathname()
+
   return (
     <SidebarGroup>
       <SidebarGroupLabel>Management</SidebarGroupLabel>
@@ -56,9 +61,9 @@ export function NavMain({
                   {item.items?.map((subItem) => (
                     <SidebarMenuSubItem key={subItem.title}>
                       <SidebarMenuSubButton asChild>
-                        <a href={subItem.url}>
+                        <Link className={`${pathName == subItem.url && "bg-primary text-white "}`} href={subItem.url}>
                           <span>{subItem.title}</span>
-                        </a>
+                        </Link>
                       </SidebarMenuSubButton>
                     </SidebarMenuSubItem>
                   ))}

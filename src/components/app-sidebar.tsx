@@ -1,18 +1,10 @@
 "use client"
 
 import * as React from "react"
-import {
-  AudioWaveform,
-  Command,
-  Frame,
-  GalleryVerticalEnd,
-  Map, PanelsTopLeft,
-  PieChart,
+import {PanelsTopLeft,
 } from "lucide-react"
 
 import { NavMain } from "@/components/nav-main"
-// import { NavProjects } from "@/components/nav-projects"
-import { NavUser } from "@/components/nav-user"
 import { TeamSwitcher } from "@/components/team-switcher"
 import { GiSkills } from "react-icons/gi";
 import {
@@ -24,31 +16,13 @@ import {
 } from "@/components/ui/sidebar"
 import {FaBloggerB} from "react-icons/fa";
 import {LiaFeatherSolid} from "react-icons/lia";
+import {Button} from "@/components/ui/button";
+import {log_out_user_action} from "@/server/auth";
+import {toast} from "sonner";
+import {useRouter} from "next/navigation";
 
 // This is sample data.
 const data = {
-  user: {
-    name: "shadcn",
-    email: "m@example.com",
-    avatar: "/avatars/shadcn.jpg",
-  },
-  teams: [
-    {
-      name: "Acme Inc",
-      logo: GalleryVerticalEnd,
-      plan: "Enterprise",
-    },
-    {
-      name: "Acme Corp.",
-      logo: AudioWaveform,
-      plan: "Startup",
-    },
-    {
-      name: "Evil Corp.",
-      logo: Command,
-      plan: "Free",
-    },
-  ],
   navMain: [
     {
       title: "Project's",
@@ -58,11 +32,11 @@ const data = {
       items: [
         {
           title: "Add Project",
-          url: "#",
+          url: "/dashboard/project/add-project",
         },
         {
           title: "Manage Project",
-          url: "#",
+          url: "/dashboard/project/manage-project",
         }
       ],
     },
@@ -112,37 +86,29 @@ const data = {
       ],
     },
   ],
-  projects: [
-    {
-      name: "Design Engineering",
-      url: "#",
-      icon: Frame,
-    },
-    {
-      name: "Sales & Marketing",
-      url: "#",
-      icon: PieChart,
-    },
-    {
-      name: "Travel",
-      url: "#",
-      icon: Map,
-    },
-  ],
 }
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+  const router = useRouter()
+  const handleLogout =async (): Promise<void> => {
+    const res = await log_out_user_action()
+    if(res){
+      toast.success("Logged out successfully.")
+      router.push("/")
+    }
+  }
   return (
     <Sidebar collapsible="icon" {...props}>
       <SidebarHeader>
-        <TeamSwitcher teams={data.teams} />
+        <TeamSwitcher />
       </SidebarHeader>
       <SidebarContent>
         <NavMain items={data.navMain} />
         {/*<NavProjects projects={data.projects} />*/}
       </SidebarContent>
       <SidebarFooter>
-        <NavUser user={data.user} />
+        {/*<NavUser user={data.user} />*/}
+        <Button onClick={handleLogout}>Log Out</Button>
       </SidebarFooter>
       <SidebarRail />
     </Sidebar>

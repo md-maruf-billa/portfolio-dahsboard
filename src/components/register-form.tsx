@@ -7,11 +7,27 @@ import {Label} from "@/components/ui/label"
 import Image from "next/image"
 import Link from "next/link";
 import {FieldValues, SubmitHandler, useForm} from "react-hook-form";
+import {register_user} from "@/server/auth";
+import {toast} from "sonner";
+import {useRouter} from "next/navigation";
 
 export function RegisterFrom({className,...props}: React.ComponentProps<"div">) {
+    const router = useRouter()
     const {handleSubmit,register} = useForm()
-    const register_new_user:SubmitHandler<FieldValues> = (data)=>{
-        console.log(data)
+    const register_new_user:SubmitHandler<FieldValues> =async (data)=>{
+        const payload = {
+            name: data.name,
+            email: data.email,
+            password: data.password,
+        }
+        const result = await register_user(payload)
+        if(result?.success){
+            toast.success(result?.message)
+            router.push("/")
+        }else {
+            toast.error(result?.message)
+        }
+
     }
     return (
         <div className={cn("flex flex-col gap-6", className)} {...props}>
