@@ -15,7 +15,6 @@ import {
   SidebarRail,
 } from "@/components/ui/sidebar"
 import {FaBloggerB} from "react-icons/fa";
-import {LiaFeatherSolid} from "react-icons/lia";
 import {Button} from "@/components/ui/button";
 import {log_out_user_action} from "@/server/auth";
 import {toast} from "sonner";
@@ -62,29 +61,29 @@ const data = {
       items: [
         {
           title: "Add Blog",
-          url: "#",
+          url: "/dashboard/blog/add-blog",
         },
         {
           title: "Manage Blog",
-          url: "#",
+          url: "/dashboard/blog/manage-blog",
         }
       ],
     },
-    {
-      title: "Featured",
-      url: "#",
-      icon: LiaFeatherSolid,
-      items: [
-        {
-          title: "Add Featured Project",
-          url: "#",
-        },
-        {
-          title: "Manage Featured Project",
-          url: "#",
-        }
-      ],
-    },
+    // {
+    //   title: "Featured",
+    //   url: "#",
+    //   icon: LiaFeatherSolid,
+    //   items: [
+    //     {
+    //       title: "Add Featured Project",
+    //       url: "#",
+    //     },
+    //     {
+    //       title: "Manage Featured Project",
+    //       url: "#",
+    //     }
+    //   ],
+    // },
   ],
 }
 

@@ -2,6 +2,7 @@
 
 import {ILoginUser, IRegisterUser} from "@/types/auth";
 import {cookies} from "next/headers";
+import {revalidateTag} from "next/cache";
 
 const server_url = process.env.NEXT_PUBLIC_SERVER_URL;
 
@@ -58,3 +59,29 @@ export const log_out_user_action = async () => {
         return Error("An unknown error occurred");
     }
 };
+
+
+export const get_dashboard_data = async ()=>{
+    const accessToken = (await cookies()).get("accessToken")?.value;
+    const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/auth/overview`, {
+        headers: {
+            "Authorization": accessToken!,
+        },
+        next:{
+            tags:["dashboard"]
+        }
+    });
+    return await res.json();
+}
+
+export const mark_as_read_message = async (id:string) => {
+    const accessToken = (await cookies()).get("accessToken")?.value;
+    const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/message/${id}`, {
+        method: "PATCH",
+        headers: {
+            "Authorization": accessToken!,
+        },
+    });
+    revalidateTag("dashboard");
+    return await res.json();
+}

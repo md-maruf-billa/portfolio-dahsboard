@@ -62,7 +62,7 @@ const ManageSkillTable = ({skills}:{skills:TSkill[]}) => {
                             <TableCell>{skill.name}</TableCell>
                             <TableCell className="text-right space-x-2 flex justify-end items-center">
                                 <UpdateSkillDialog skill={skill} />
-                                <Button onClick={()=>handleDelete(skill._id)} variant="destructive" size="sm">
+                                <Button onClick={()=>handleDelete(skill._id as string)} variant="destructive" size="sm">
                                     Delete
                                 </Button>
                             </TableCell>

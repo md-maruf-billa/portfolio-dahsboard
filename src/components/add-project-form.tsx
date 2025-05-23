@@ -316,7 +316,7 @@ const AddProjectForm = () => {
                             {/* Product Image Upload */}
                             <div className="space-y-2">
                                 <label htmlFor="image" className="block text-sm font-medium text-gray-700">
-                                    Product Image
+                                    Project Image
                                 </label>
                                 <div className="mt-1 flex flex-col items-center">
                                     {imagePreview ? (
@@ -387,16 +387,7 @@ const AddProjectForm = () => {
                                 </div>
                             </div>
 
-                            {/* Tips Section */}
-                            {/*<div className="bg-blue-50 p-4 rounded-lg border border-blue-200 mt-6">*/}
-                            {/*    <h3 className="text-sm font-medium text-blue-800 mb-2">Tips for Great Project Listings</h3>*/}
-                            {/*    <ul className="text-xs text-blue-700 space-y-1 list-disc pl-4">*/}
-                            {/*        <li>Use high-quality, well-lit images that showcase your Project clearly</li>*/}
-                            {/*        <li>Write detailed descriptions that highlight key features and benefits</li>*/}
-                            {/*        <li>Include accurate dimensions, materials, and other specifications</li>*/}
-                            {/*        <li>Use relevant tags to improve discoverability</li>*/}
-                            {/*    </ul>*/}
-                            {/*</div>*/}
+
                         </div>
                         <div className="col-span-2 space-y-2">
                             <label htmlFor="tags" className="block text-sm font-medium text-gray-700">
