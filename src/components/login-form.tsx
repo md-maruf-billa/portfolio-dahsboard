@@ -26,7 +26,6 @@ export function LoginForm({
             password: data.password,
         }
         const response = await login_user(payload)
-        console.log(response)
         if (response?.success) {
             toast.success("Login successfully")
             router.push("/dashboard")

@@ -1,7 +1,8 @@
 
 import {NextResponse} from 'next/server'
 import type {NextRequest} from 'next/server'
-import jwt from 'jsonwebtoken'
+import { jwtDecode } from "jwt-decode";
+import {cookies} from "next/headers";
 
 
 type IDecoded = {
@@ -9,25 +10,21 @@ type IDecoded = {
     role: string,
 }
 
-export function middleware(request: NextRequest) {
-    const token = request.cookies.get('token')?.value
-
+export async function middleware(request: NextRequest) {
+    const token = (await cookies()).get('accessToken')?.value
     if (!token) {
         const url = new URL('/register', request.url)
-        url.searchParams.set('error', 'Please login first!!')
         return NextResponse.redirect(url)
     }
 
     try {
-        const decoded = jwt.verify(token, process.env.JWT_SECRET!) as IDecoded
+        const decoded = jwtDecode(token) as IDecoded;
         if (decoded?.role !== 'ADMIN') {
             const url = new URL('/register', request.url)
-            url.searchParams.set('error', 'You are not admin!!')
             return NextResponse.redirect(url)
         }
     } catch {
         const url = new URL('/register', request.url)
-        url.searchParams.set('error', 'Invalid token')
         return NextResponse.redirect(url)
     }
 

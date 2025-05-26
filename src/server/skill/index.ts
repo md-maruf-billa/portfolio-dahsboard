@@ -15,6 +15,7 @@ export const add_skill = async (payload:TSkill) => {
         },
         body: JSON.stringify(payload),
     })
+    revalidateTag("skills")
     return await res.json()
 }
 
